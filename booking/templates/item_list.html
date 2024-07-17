@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Available Items</h2>
+    <div class="row">
+        {% for item in items %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <p class="card-text">Price: ${{ item.price }}</p>
+                        <a href="{% url 'booking:book' %}" class="btn btn-primary btn-sm">Book Now</a>
+
+                        
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}" target="_blank" class="btn btn-sm btn-outline-info">Share on Twitter</a>
+                        <a href="https://www.instagram.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-sm btn-outline-danger">Share on Instagram</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

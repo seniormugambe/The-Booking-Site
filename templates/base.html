@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TRIPLUG Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            background: url('path/to/your/background-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+
+                    
+                     <ul class="nav flex-column">
+                        {%if user.is_authenticated %}
+                            <li>
+                                <form action="{%url 'booking:logout'%}" method="post">
+                                    {%csrf_token%}
+                                    <button type="submit">Log out</button>
+                                </form>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'booking:product' %}">
+                                    <span data-feather="home"></span>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'booking:product' %}">
+                                    <span data-feather="file"></span>
+                                    Items
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'booking:book' %}">
+                                    <span data-feather="shopping-cart"></span>
+                                    Book Now
+                                </a>
+                            </li>
+                        {%else%}   
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'booking:login' %}">
+                                    <span data-feather="users"></span>
+                                    Login
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'booking:signup' %}">
+                                    <span data-feather="bar-chart-2"></span>
+                                    Sign Up
+                                </a>
+                            </li>
+                        {%endif%}
+                        </ul>
+                </div>
+            </nav>
+            
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">{% block header %}Dashboard{% endblock %}</h1>
+                </div>
+                <div class="animated fadeIn">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        feather.replace()
+    </script>
+</body>
+</html>
